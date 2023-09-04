@@ -14,13 +14,14 @@ Metrics are based on standard formula for accuracy, precision, F1.
 Since all blinks labels havent been annotated
 Precision is calculated based on no of predictions in closed eye duration. Any predictions are considered false.
 Accuracy is predicted based on How many blinks have been detected that are labelled.
+  #### An F1 score is calculated based on these Values
 >  $`Accuracy = (Total Blink labels found in duration of predicted blink label)/Total Blink Labels Annotated`$
 
 >  $`Precision = (Total Predictions - Predictions Made in Closed Eye Interval)/Total Predictions`$
 
 >  $`Recall =  (Total Predictions that can be counted as Accurate)/(Accurate Predictions + False Predictions)`$
 
-  ### An F1 score is calculated based on these Values
+  
 
 ### Reference Resource 
 [BLINK Algorithm](https://par.nsf.gov/servlets/purl/10321749) used as reference for building a detecting eye_blinks based on temporal characterstics on Eye blinks
