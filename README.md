@@ -6,7 +6,7 @@ EEG EYE BLINK CLASSIFIER
 main.py taken in arguments -f for filename to work with and -fx for location where to export new annotated edf file
 >Example
   ~~~
->Example  python main.py -f eeg/test.fif -fx eeg/
+  python main.py -f eeg/test.fif -fx eeg/
   ~~~
 
 ## Metrics
