@@ -16,7 +16,7 @@ Precision is calculated based on no of predictions in closed eye duration. Any p
 Accuracy is predicted based on How many blinks have been detected that are labelled.
 
 ### Reference Resource 
-[BLINK Algorithm](uhttps://par.nsf.gov/servlets/purl/10321749rl) used as reference for building a Blink algorithm based on temporal characterstics on Eye blinks
+[BLINK Algorithm](https://par.nsf.gov/servlets/purl/10321749) used as reference for building a Blink algorithm based on temporal characterstics on Eye blinks
 
 
 ### Warnings
