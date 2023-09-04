@@ -16,8 +16,9 @@ Precision is calculated based on no of predictions in closed eye duration. Any p
 Accuracy is predicted based on How many blinks have been detected that are labelled.
 
 ### Reference Resource 
-[BLINK Algorithm](https://par.nsf.gov/servlets/purl/10321749) used as reference for building a Blink algorithm based on temporal characterstics on Eye blinks
-
+[BLINK Algorithm](https://par.nsf.gov/servlets/purl/10321749) used as reference for building a detecting eye_blinks based on temporal characterstics on Eye blinks
+This depends on a single channel data. Fp1 and Fp2 both are great channels for detecting eye_blinks. However Fp1 showed a greater accuracy hence it was selected as preffered channel 
+Although using relationship matrix for potential blinks in both channels can provide more refined selection of blink duration.
 
 ### Warnings
 edf files are not supported use edftofif.py to convert edf files to fif and use them. 
