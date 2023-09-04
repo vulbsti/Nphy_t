@@ -20,7 +20,7 @@ Accuracy is predicted based on How many blinks have been detected that are label
 
 >  $`Recall =  (Total Predictions that can be counted as Accurate)/(Accurate Predictions + False Predictions)`$
 
-  ###An F1 score is calculated based on these Values
+  ### An F1 score is calculated based on these Values
 
 ### Reference Resource 
 [BLINK Algorithm](https://par.nsf.gov/servlets/purl/10321749) used as reference for building a detecting eye_blinks based on temporal characterstics on Eye blinks
