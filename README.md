@@ -10,7 +10,7 @@ pip install -r requirements.txt
 ~~~
 >Example
   ~~~
-  python main.py -f eeg/test.fif -fx eeg/
+  python main.py -f eeg/test.fif -fx eeg/test_anot.edf
   ~~~
 For Batch-operation and metric calculation use mnbat.py. The module reads all fif files in mentioned directory. And predicted values are stored in a metrics.csv file in the same directory. with chan 0 representing Fp1 and chan 1 representing Fp2. 
   ~~~
