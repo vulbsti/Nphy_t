@@ -66,6 +66,16 @@ def peakdet(time, value, args):
             foundMin = True
     return foundMin
 
+def time2sec(time_var):
+    '''
+    if type(time_var) != datetime.time :
+        dt=time_var.time()
+    else:    
+        
+    '''
+    dt=time_var  
+    dts=dt.hour*3600 +dt.minute*60 +dt.second + +dt.microsecond*1e-6
+    return dts
    
 def find_expoints(peaks_arr, data_sig,std_win):
     # Parameters
@@ -251,29 +261,7 @@ def compute(data,chan,p_blinks_t=0,p_blinks_val=0):
     onset,val=corr_match(data,chan,p_blinks_t,p_blinks_val,corr_matrix,pow_matrix)
     return onset, val
 
-def eliminate(onset,val):
-    # UCL + harvard research fastest eyeblink duration of 100ms and 400ms slow blink, exceptions are not taken into consideration
-    #shorting onsets based on this.
-    x=np.where(onset[:,2]-onset[:,0]<0.1)
-    onset=np.delete(onset,x,axis=0)
-    val=np.delete(val,x,axis=0)
-    x=np.where(onset[:,2]-onset[:,0]>0.7)
-    onset=np.delete(onset,x,axis=0)
-    val=np.delete(val,x,axis=0)
-    return onset, val
-
-
-def time2sec(time_var):
-    '''
-    if type(time_var) != datetime.time :
-        dt=time_var.time()
-    else:    
-        
-    '''
-    dt=time_var  
-    dts=dt.hour*3600 +dt.minute*60 +dt.second + +dt.microsecond*1e-6
-    return dts
-    
+  
 
 
 def metrics(onset,anot_t,anot_ke):
@@ -292,8 +280,7 @@ def metrics(onset,anot_t,anot_ke):
     for i in range(len(onset)):
         if onset[i,1]>anot_t[close_st]+1 and onset[i,1]<anot_t[close_en]-1:
             false_p=false_p+1
-    
-    
+      
     if acc==0:
         recall=999999
         F1s=999999
