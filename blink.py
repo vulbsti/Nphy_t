@@ -76,6 +76,16 @@ def time2sec(time_var):
     dt=time_var  
     dts=dt.hour*3600 +dt.minute*60 +dt.second + +dt.microsecond*1e-6
     return dts
+
+def filteration(data,sfreq=250):
+    dataf=mne.filter.notch_filter(data, Fs=250, freqs=50,method='iir') #dataf is a numpy array
+    dataf=mne.filter.filter_data(dataf, sfreq=sfreq, l_freq=1, h_freq= 50, picks=None, 
+                                filter_length='auto', l_trans_bandwidth='auto', 
+                                h_trans_bandwidth='auto', n_jobs=None, method='iir',
+                                iir_params={
+                                 'ftype': 'butter',
+                                 'order': 6,
+                                }, copy=True, phase='zero', verbose=None) 
    
 def find_expoints(peaks_arr, data_sig,std_win):
     # Parameters
@@ -221,15 +231,7 @@ def corr_match(data,chan,p_blinks_t,p_blinks_val,corr_matrix,pow_matrix):
     return final_blinks_t , final_blinks_val
 
 
-def filteration(data,sfreq=250):
-    dataf=mne.filter.notch_filter(data, Fs=250, freqs=50,method='iir') #dataf is a numpy array
-    dataf=mne.filter.filter_data(dataf, sfreq=sfreq, l_freq=1, h_freq= 50, picks=None, 
-                                filter_length='auto', l_trans_bandwidth='auto', 
-                                h_trans_bandwidth='auto', n_jobs=None, method='iir',
-                                iir_params={
-                                 'ftype': 'butter',
-                                 'order': 6,
-                                }, copy=True, phase='zero', verbose=None) 
+
     return dataf
 
 def eliminate(onset,val):
