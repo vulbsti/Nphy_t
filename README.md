@@ -4,6 +4,10 @@ EEG EYE BLINK CLASSIFIER
 
 ## Usage
 main.py taken in arguments -f for filename to work with and -fx for location where to export new annotated edf file
+
+~~~
+pip install -r requirements.txt
+~~~
 >Example
   ~~~
   python main.py -f eeg/test.fif -fx eeg/
@@ -39,3 +43,4 @@ edf files are not supported use edfTofif.py to convert edf files to fif and use 
 MNE shows codec errors while performing certain functions on EDF
 If still need to use edf use import pyedflib for reading annotations
 
+> Incase of batch_files if metrics.csv is not present in directory add one
