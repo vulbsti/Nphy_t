@@ -76,15 +76,15 @@ for fname in files:
         onset,val=blink.eliminate(onset,val)
         if len(onset)!= 0 :
             acc,accuracy,false_pre,precision,recall,F1s=blink.metrics(onset,anot_t,anot_ke)
-            l=[fname,acc,accuracy,false_pre,precision,len(onset),len(anot_t),i]
+            l=[fname,acc,accuracy,false_pre,precision,len(onset),len(anot_t),recall,F1s, i]
             #print(f"{l[1]} ,{l[3]} ,{l[2]} ,{l[5]}, {l[6]}")
             ls.append(l)
         else :
-            ls.append([0,0,0,0,0,0,0])
+            ls.append([0,0,0,0,0,0,0,0,0,0])
     
     
    
 with open(filepath+"metric.csv", 'w', newline='') as file:
         writer =csv.writer(file)
-        writer.writerow(['filename','accuracy_rate','accuracy','false_pre','precision','predicted_t','anot_to','chan'])
+        writer.writerow(['filename','accuracy_rate','accuracy','false_pre','precision','total_prediction','total_label','Recall_value','F1_score''chan'])
         writer.writerows(ls)
