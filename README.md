@@ -17,6 +17,12 @@ For Batch-operation and metric calculation use mnbat.py. The module reads all fi
   python main_batch.py -fp "fif directory path"
   ~~~
 
+Although the annotations are more visually appealing with EDF Browser in case a matplot.plt is needed 
+simply call plotter.py with with edf file in argument
+~~~
+python plotter.py -f "File.edf"
+~~~
+
 ## Metrics
 Metrics are based on standard formula for accuracy, precision, F1.
 Since all blinks labels havent been annotated
