@@ -148,7 +148,10 @@ def find_expoints(peaks_arr, data_sig,std_win):
             
 
     p_blinks_t = np.array(p_blinks_t)        
-    p_blinks_val = np.array(p_blinks_val)  
+    p_blinks_val = np.array(p_blinks_val)
+    x=np.where(p_blinks_val[:,2]>2*thresh)   # update 7/9 accounting for high threshold artifacts
+    p_blinks_t=np.delete(p_blinks_t,x,axis=0)
+    p_blinks_val=np.delete(p_blinks_val,x,axis=0)
     
     return p_blinks_t, p_blinks_val
 
