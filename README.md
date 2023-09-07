@@ -38,8 +38,8 @@ Accuracy is predicted based on How many blinks have been detected that are label
   
 
 ### Reference Resource 
-[BLINK Algorithm](https://par.nsf.gov/servlets/purl/10321749) used as reference for building a detecting eye_blinks based on temporal characterstics on Eye blinks
-This depends on a single channel data. Fp1 and Fp2 both are great channels for detecting eye_blinks. However Fp1 showed a greater accuracy hence it was selected as preffered channel 
+[BLINK Algorithm](https://par.nsf.gov/servlets/purl/10321749) used as reference for building a eye_blink detection module based on temporal characterstics on Eye blinks.
+This module uses single channel data for extracting blink characterstics over time domain and detecting potential blink candidates. Fp1 and Fp2 both are great channels for detecting eye_blinks. However Fp1 showed a greater accuracy hence it was selected as preffered channel 
 Although using relationship matrix for potential blinks in both channels can provide more refined selection of blink duration.
 
 
