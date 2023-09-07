@@ -25,7 +25,7 @@ file_exp=args.filexp
 
 
 data= mne.io.read_raw_fif(fname,preload=True) 
-annotation= mne.read_annotations(+fname)  #returns tuple as MNE object
+annotation= mne.read_annotations(fname)  #returns tuple as MNE object
 anot=annotation.to_data_frame()
 dt=data.info['meas_date'].time()
 ot=blink.time2sec(dt)
