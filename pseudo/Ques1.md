@@ -17,12 +17,12 @@
      The stable Points function returns arrays with p_blink_t (blink onset, peak and end time) and p_blinks_val (value at those time indexes)  each with shape (n,3).
 
 * Step 5
-    Next step is to compute correlation between each of the blink_intervals.
+    Next step is to compute correlation between each of the potential blink_intervals. and create a correlation matrix
     ~~~
     for i in range (total_p_blinks):
      for j in range (i+1,total_p_blinks):
-        signal A = data_signal from samplefreq*(onset p_blink_t at i to end time p_blink_t at i)
-        signal B = data_signal from samplefreq*(onset p_blink_t at j to end time p_blink_t at j)
+        signal A = data_signal from p_blink_t[i,0] samplefreq to p_blinks_t[i,3] * samplefreq
+        signal B = data_signal p_blink_t[j,0] samplefreq to p_blinks_t[j,3] * samplefreq
         find correlation coefficient between signal A and signal B
         add correcoeff to correlation matrix[i,j]
         power ratio = standard deviation(signal A)/standard deviation(signal B)
