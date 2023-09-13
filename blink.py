@@ -16,6 +16,7 @@ corr_threshold_2 =0.6   # used for blink template matching
 std_threshold_window =int(5*fs) # total window size for whose minimum standard deviation is to be taken, around peak.
 cofa=6  #cofactor reduction for stable points value =2.5*cofa of min std_window
 
+#calculate the a windowed standard deviation at each index of sample
 def windowed_std(data_sig, fs):
     # Find running std for window length around the data_point of interest
     data_sig=np.array(data_sig)
@@ -31,6 +32,7 @@ def windowed_std(data_sig, fs):
             
     return running_std
 
+#using these dictionary type variable to store values based computed using peak_detection function
 def args_init(delta_uV):
     args = {}
     args['mintab'], args['maxtab'] = [], []
@@ -40,7 +42,9 @@ def args_init(delta_uV):
     args['lookformax'] = True
     args['delta'] = delta_uV
     return args
-
+    
+#finds and maximas and minimas in the dataset and stores values in array if they cross the threshold of 100 microvolts.
+#the threshold is based on peak to peak difference in amplitudes.
 def peakdet(time, value, args):
     foundMin = False
     if value > args['mx']:
@@ -66,6 +70,7 @@ def peakdet(time, value, args):
             foundMin = True
     return foundMin
 
+# function to convert a time object variable into seconds for computing onset time of dataset and annotations. 
 def time2sec(time_var):
     '''
     if type(time_var) != datetime.time :
@@ -77,6 +82,8 @@ def time2sec(time_var):
     dts=dt.hour*3600 +dt.minute*60 +dt.second + +dt.microsecond*1e-6
     return dts
 
+# this functions using in_built MNE filteration methods to apply a notch filter at 50Hz and a butterworth IIR bandpass filter 
+# the bandpass filter has cutoff at 1Hz and 50Hz with 6th order.
 def filteration(data,sfreq=250):
     dataf=mne.filter.notch_filter(data, Fs=250, freqs=50,method='iir') #dataf is a numpy array
     dataf=mne.filter.filter_data(dataf, sfreq=sfreq, l_freq=1, h_freq= 50, picks=None, 
@@ -86,7 +93,10 @@ def filteration(data,sfreq=250):
                                  'ftype': 'butter',
                                  'order': 6,
                                 }, copy=True, phase='zero', verbose=None) 
-   
+
+# Function narrows down the peak points to values of interest based on the stable_point theory.
+# Parameters for narrowing are choosen such that most potential blinks are accounted for at the cost of false positives. 
+# A balance trade off has been made based on the cummulative analysis of datasets hence been finetuned for the device in consideration
 def find_expoints(peaks_arr, data_sig,std_win):
     # Parameters
     offset_t = 0.00 # in seconds
@@ -155,6 +165,8 @@ def find_expoints(peaks_arr, data_sig,std_win):
     
     return p_blinks_t, p_blinks_val
 
+# method computes a self-correlation matrix for each and every potential eye_blink detected with every other potential blink in the selected channel data.
+# Also computes a power matrix to compute relation between amplitudes. That is used to normalise data when forming clusters.
 def compute_correlation(p_blinks_t, data_sig, fs=250):
     total_p_blinks = len(p_blinks_t)
     corr_matrix = np.ones([total_p_blinks, total_p_blinks])
@@ -194,6 +206,7 @@ def compute_correlation(p_blinks_t, data_sig, fs=250):
 
     return corr_matrix, pow_matrix
 
+# create clusters based on correlation/power values and select cluster with max mean for choosing the best eye_blink clustered data.
 def corr_match(data,chan,p_blinks_t,p_blinks_val,corr_matrix,pow_matrix):
     s_fc = (sum(corr_matrix))
     sort_idx = sorted(range(len(s_fc)), key=lambda k: s_fc[k])
@@ -237,6 +250,7 @@ def corr_match(data,chan,p_blinks_t,p_blinks_val,corr_matrix,pow_matrix):
 
     return dataf
 
+
 def eliminate(onset,val):
     # UCL + harvard research fastest eyeblink duration of 100ms and 400ms slow blink, exceptions are not taken into consideration
     #shorting onsets based on this.
@@ -248,6 +262,8 @@ def eliminate(onset,val):
     val=np.delete(val,x,axis=0)
     return onset, val
 
+# main function that computes the eye_blink data for a specific channel. 
+# P_blinks array can be provided in case a supervised version has to be generated for eye_blink detection
 def compute(data,chan,p_blinks_t=0,p_blinks_val=0):
     
     std_win= windowed_std(data[chan],fs)
@@ -268,7 +284,8 @@ def compute(data,chan,p_blinks_t=0,p_blinks_val=0):
 
   
 
-
+# metrics are based on pre_annotated data. It doesnt computed any accuracy if the data provided doesnt contain annotated eye_blinks.
+# the validity of these metrics is subject to pre_labelled data.
 def metrics(onset,anot_t,anot_ke):
     acc=0
     false_p=0
